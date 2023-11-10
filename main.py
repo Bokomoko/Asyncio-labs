@@ -9,7 +9,7 @@ async def brewCoffee():
   return "Coffee cup"
 
 
-async def toastBagle():
+async def toastBagel():
   print("Toasting bagel...")
   await asyncio.sleep(2)
   print("Bagel is toasted")
@@ -18,8 +18,12 @@ async def toastBagle():
 
 async def main():
   startTime = time.time()
-  batch = asyncio.gather(brewCoffee(), toastBagle())
-  result_coffee, result_bagel = await batch
+  coffee_task = asyncio.create_task(brewCoffee())
+  bagel_task = asyncio.create_task(toastBagel())
+
+  result_coffee = await coffee_task
+  result_bagel = await bagel_task
+
   print(f"Result of coffee: {result_coffee}")
   print(f"Result of bagel: {result_bagel}")
 
